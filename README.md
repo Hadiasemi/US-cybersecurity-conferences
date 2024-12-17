@@ -1,4 +1,4 @@
-# Cybersecurity Conferences United States
+#  United States Cybersecurity Conferences
 
 
 This project is a Python script that uses **Selenium** and **BeautifulSoup** to scrape cybersecurity conference data from the website [infosec-conferences.com](https://infosec-conferences.com/). The script extracts details about events, including event name, link, date, type, country, region, state, city, and format, and saves the data into a CSV file.
