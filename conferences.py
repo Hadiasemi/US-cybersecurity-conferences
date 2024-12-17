@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -8,7 +7,11 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 
-driver = webdriver.Chrome()  
+# Set Chrome options to open in full-screen
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--start-maximized")
+
+driver = webdriver.Chrome(options=chrome_options)
 
 url = 'https://infosec-conferences.com/'
 
@@ -24,15 +27,6 @@ try:
     time.sleep(5)  
 except Exception as e:
     print(f"Error selecting 'All' entries: {e}")
-
-def expand_rows():
-    expand_buttons = driver.find_elements(By.CSS_SELECTOR, "td .child-control")
-    for button in expand_buttons:
-        try:
-            ActionChains(driver).move_to_element(button).click(button).perform()
-            time.sleep(0.5)  
-        except Exception as e:
-            print(f"Error clicking button: {e}")
 
 def parse_page():
     html = driver.page_source
@@ -69,8 +63,6 @@ def parse_page():
                 "Event Format": event_format
             })
     return page_event_data
-
-expand_rows()
 
 all_event_data = parse_page()
 
